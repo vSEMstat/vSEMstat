@@ -2,10 +2,6 @@
 
 $config = parse_ini_file('config.ini');
 
-// Идентификатор приложения
-$client_id = ''; 
-// Пароль приложения
-$client_secret = '';
 // Если скрипт был вызван с указанием параметра "code" в URL,
 // то выполняется запрос на получение токена
 if (isset($_GET['code']))
@@ -14,7 +10,9 @@ if (isset($_GET['code']))
     $query = array(
       'grant_type' => 'authorization_code',
       'code' => $_GET['code'],
+		// Идентификатор приложения
       'client_id' => $config['client_id'],
+		// Пароль приложения
       'client_secret' => $config['client_secret'],
     );
     $query = http_build_query($query);
