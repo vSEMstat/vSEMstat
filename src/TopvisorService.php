@@ -12,6 +12,10 @@ class TopvisorService extends BaseService
 	protected $user;
 	protected $apiKey;
 	protected $projectID;
+	protected $regionsIndexes;
+	protected $folderId;
+	protected $groupId;
+	protected $filters;
 
 	public function __construct($user = null, $apiKey = null, $projectID = null)
 	{
@@ -41,6 +45,11 @@ class TopvisorService extends BaseService
 		$this->projectID = $projectID;
 	}
 
+	public function setFilter($filter)
+	{
+		$this->filters = $filter;
+	}
+
 	public function request(array $post = null)
 	{
 
@@ -57,9 +66,30 @@ class TopvisorService extends BaseService
 
 		unset($post['date_start'], $post['date_end']);
 
+		if(!empty($post['project_id'])){
+			$this->projectID = $post['project_id'];
+		}
+
 		$this->post = array_merge($post, [
 			'project_id' => $this->projectID,
+			'show_visibility' => 1,
+			'group_folder_id_depth' => 1,
+			// 'show_dynamics' => 1,
+			'show_avg' => 1,
 		]);
+
+		if(!empty($this->filters)){
+
+			$this->post = array_merge($this->post, [
+				'filters' => [
+					[
+						'name' => 'group_folder_id',
+						'operator' => 'EQUALS',
+						'values' => $this->filters,
+					]
+				],
+			]);
+		}
 
 		$this->buildHeader();
 
