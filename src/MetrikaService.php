@@ -20,10 +20,15 @@ class MetrikaService extends BaseService
 		$this->counterId = $counterId;
 
 		parent::__construct([
-			'url' => 'https://api-metrika.yandex.ru/stat/v1/data',
+			'url' => $this->getInitUrl(),
 			'header' => [],
 			'post' => [],
 		]);
+	}
+
+	private function getInitUrl()
+	{
+		return 'https://api-metrika.yandex.ru/stat/v1/data';
 	}
 
 	public function setToken($token)
@@ -63,6 +68,7 @@ class MetrikaService extends BaseService
 	
 	public function request(array $post = null)
 	{
+
 		if(empty($post['date_start']))
 			$post['date_start'] = date('Y-m-d', strtotime('today'));
 
@@ -74,11 +80,10 @@ class MetrikaService extends BaseService
 			$post['date_end']
 		];
 
-		$urlParams = "?ids={$this->counterId}&metrics={$metrics}&dimensions={$dimensions}&filters={$filters}&date1={$dates[0]}&date2={$dates[1]}";
+		$urlParams = "?ids={$this->counterId}&metrics={$this->metrics}&dimensions={$this->dimensions}&filters={$this->filters}&date1={$dates[0]}&date2={$dates[1]}";
 
+		$this->url = $this->getInitUrl();
 		$this->url .= $urlParams;
-
-
 
 		$this->buildHeader();
 
@@ -92,4 +97,6 @@ class MetrikaService extends BaseService
 			'Authorization: OAuth' . $this->token,
 		];
 	}
+
+
 }
