@@ -40,7 +40,10 @@ class BaseService
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $this->url);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, $this->header);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->post));
+
+		if(!empty($this->post))
+			curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->post));
+
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
 		$object = curl_exec($ch);
