@@ -45,9 +45,9 @@ class TopvisorService extends BaseService
 		$this->projectID = $projectID;
 	}
 
-	public function setFilter($filter)
+	public function setFilter($filters)
 	{
-		$this->filters = $filter;
+		$this->filters = $filters;
 	}
 
 	public function request(array $post = null)
