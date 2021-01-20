@@ -1,6 +1,6 @@
 <?php
 
-$config = parse_ini_file('config.ini');
+$config = include('config.php');
 
 // Если скрипт был вызван с указанием параметра "code" в URL,
 // то выполняется запрос на получение токена
@@ -11,9 +11,9 @@ if (isset($_GET['code']))
       'grant_type' => 'authorization_code',
       'code' => $_GET['code'],
 		// Идентификатор приложения
-      'client_id' => $config['client_id'],
+      'client_id' => $config['yandex']['client_id'],
 		// Пароль приложения
-      'client_secret' => $config['client_secret'],
+      'client_secret' => $config['yandex']['client_secret'],
     );
     $query = http_build_query($query);
 
@@ -33,7 +33,8 @@ if (isset($_GET['code']))
     $result = json_decode($result);
 
     // Токен необходимо сохранить для использования в запросах к API Директа
-    echo $result->access_token;
+    echo "Ваш токен доступа: " . $result->access_token . " <br>\n";
+    echo "Токен сохранен в файле oauth_key.key\n";
 
     file_put_contents('oauth_key.key', $result->access_token);
   }

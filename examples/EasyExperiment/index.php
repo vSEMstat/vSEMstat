@@ -11,9 +11,10 @@ use vSEMstat\Services\TopvisorService;
 use vSEMstat\Services\MetrikaService;
 
 
-// чиатем конфигурацию базы данных
-$dbConfig = include('db.config.php');
-$db = dbConnection($dbConfig);
+// чиатем конфигурацию
+$config = include('/../../oauth/config.php');
+
+$db = dbConnection($config['mysql']);
 
 
 // создем сервис топвизора
