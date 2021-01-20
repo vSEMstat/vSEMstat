@@ -5,7 +5,7 @@
 *
 */
 
-require_once __DIR__ . "/../library.php";
+require_once __DIR__ . "/../../src/vSEMstat.php";
 
 use vSEMstat\Services\TopvisorService;
 use vSEMstat\Services\MetrikaService;
@@ -33,7 +33,7 @@ $metrika->setCounterId('');
 $metrika->setToken('');
 
 // или берем ключ из файла с ключом 
-// $metrika->setTokenFromConfig(__DIR__ . '/../oauth_key.key');
+// $metrika->setTokenFromConfig(__DIR__ . '/../../oauth/oauth_key.key');
 
 $metrika->setMetrics("ym:s:visits,ym:s:users");
 $metrika->setDemensions("ym:s:searchEngineRootName");
