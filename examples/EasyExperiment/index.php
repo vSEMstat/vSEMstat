@@ -21,48 +21,32 @@ $db = dbConnection($config['mysql']);
 $topvisor = new TopvisorService;
 
 // основные параметры
-$topvisor->setUserId('');
-$topvisor->setApiKey('');
-$topvisor->setProjectID('');
+$topvisor->setUserId($config['topvisor']['user_id']);
+$topvisor->setApiKey(['topvisor']['api_key']);
+$topvisor->setProjectID(['topvisor']['project_id']);
 
 
 // создаем сервис метрики
 $metrika = new MetrikaService;
-$metrika->setCounterId('');
+$metrika->setCounterId($config['metrika']['counter_id']);
 
-// задаем токен доступа
-$metrika->setToken('');
+// берем ключ из файла с ключом 
+$metrika->setTokenFromConfig(__DIR__ . '/../../oauth/oauth_key.key');
 
-// или берем ключ из файла с ключом 
-// $metrika->setTokenFromConfig(__DIR__ . '/../../oauth/oauth_key.key');
+// или задаем токен доступа из настроек
+// $metrika->setToken($config['metrika']['token']);
 
-$metrika->setMetrics("ym:s:visits,ym:s:users");
-$metrika->setDemensions("ym:s:searchEngineRootName");
+// список импортируемых метрик
+$metrika->setMetrics('ym:s:visits,ym:s:users');
+//  список импортируемых измерений
+$metrika->setDemensions('ym:s:searchEngineRootName');
 
-$dates = [
-	'2020-12-07',
-	date('Y-m-d', strtotime('today')),
-];
+$dates = $config['dates'];
 
-$TopvisorGoogleA = [
-	'https://topvisor.com/project/dynamics/2535875/#historyView=1&templateDateRange=data_range_1y&dates=&date1=20.12.2019&date2=20.12.2020&typeRange=2&typeRangeCompare=4&countDates=31&regionsIndexes=1&competitorsIds=&folderId=0&groupId=0&tags=&dynamic=&minPos=&maxPos=&onlyExistsFirstDate=0',
-	'https://topvisor.com/project/dynamics/2535875/#historyView=1&templateDateRange=data_range_1y&dates=&date1=20.12.2019&date2=20.12.2020&typeRange=2&typeRangeCompare=4&countDates=31&regionsIndexes=1&competitorsIds=&folderId=0&groupId=0&tags=&dynamic=&minPos=&maxPos=&onlyExistsFirstDate=0',
-	'https://topvisor.com/project/dynamics/2535875/#historyView=1&templateDateRange=data_range_1y&dates=&date1=20.12.2019&date2=20.12.2020&typeRange=2&typeRangeCompare=4&countDates=31&regionsIndexes=1&competitorsIds=&folderId=0&groupId=0&tags=&dynamic=&minPos=&maxPos=&onlyExistsFirstDate=0',
-];
-
-$TopvisorGoogleB = [
-	'https://topvisor.com/project/dynamics/2535875/#historyView=1&templateDateRange=data_range_1y&dates=&date1=20.12.2019&date2=20.12.2020&typeRange=2&typeRangeCompare=4&countDates=31&regionsIndexes=1&competitorsIds=&folderId=257868&groupId=13220597&tags=&dynamic=&minPos=&maxPos=&onlyExistsFirstDate=0',
-];
-
-$TopvisorYandexA = [
-	'https://topvisor.com/project/dynamics/2535875/#historyView=1&templateDateRange=data_range_1y&dates=&date1=20.12.2019&date2=20.12.2020&typeRange=2&typeRangeCompare=4&countDates=31&regionsIndexes=1&competitorsIds=&folderId=0&groupId=0&tags=&dynamic=&minPos=&maxPos=&onlyExistsFirstDate=0',
-	'https://topvisor.com/project/dynamics/2535875/#historyView=1&templateDateRange=data_range_1y&dates=&date1=20.12.2019&date2=20.12.2020&typeRange=2&typeRangeCompare=4&countDates=31&regionsIndexes=1&competitorsIds=&folderId=0&groupId=0&tags=&dynamic=&minPos=&maxPos=&onlyExistsFirstDate=0',
-	'https://topvisor.com/project/dynamics/2535875/#historyView=1&templateDateRange=data_range_1y&dates=&date1=20.12.2019&date2=20.12.2020&typeRange=2&typeRangeCompare=4&countDates=31&regionsIndexes=1&competitorsIds=&folderId=0&groupId=0&tags=&dynamic=&minPos=&maxPos=&onlyExistsFirstDate=0',
-];
-
-$TopvisorYnadexB = [
-	'https://topvisor.com/project/dynamics/2535875/#historyView=1&templateDateRange=data_range_1y&dates=&date1=20.12.2019&date2=20.12.2020&typeRange=2&typeRangeCompare=4&countDates=31&regionsIndexes=1&competitorsIds=&folderId=257868&groupId=13220597&tags=&dynamic=&minPos=&maxPos=&onlyExistsFirstDate=0',
-];
+$TopvisorGoogleA = $config['topvisor_google_a'];
+$TopvisorGoogleB = $config['topvisor_google_b'];
+$TopvisorYandexA = $config['topvisor_yandex_a'];
+$TopvisorYnadexB = $config['topvisor_yandex_b'];
 
 $metrikaFilterYnadexA = "ym:s:searchEngineRootName=@'Яндекс'";
 $metrikaFilterGoogleA = "ym:s:searchEngineRootName=@'Google'";
@@ -70,7 +54,7 @@ $metrikaFilterGoogleA = "ym:s:searchEngineRootName=@'Google'";
 $metrikaFilterYnadexB = "ym:s:searchEngineRootName=@'Яндекс'";
 $metrikaFilterGoogleB = "ym:s:searchEngineRootName=@'Google'";
 
-
+// создание списка дат за период
 $period = new DatePeriod(
      new DateTime($dates[0]),
      new DateInterval('P1D'),
