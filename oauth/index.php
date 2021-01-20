@@ -11,9 +11,9 @@ if (isset($_GET['code']))
       'grant_type' => 'authorization_code',
       'code' => $_GET['code'],
 		// Идентификатор приложения
-      'client_id' => $config['yandex']['client_id'],
+      'client_id' => $config['metrika']['client_id'],
 		// Пароль приложения
-      'client_secret' => $config['yandex']['client_secret'],
+      'client_secret' => $config['metrika']['client_secret'],
     );
     $query = http_build_query($query);
 
