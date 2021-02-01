@@ -48,11 +48,11 @@ $TopvisorGoogleB = $config['topvisor_google_b'];
 $TopvisorYandexA = $config['topvisor_yandex_a'];
 $TopvisorYnadexB = $config['topvisor_yandex_b'];
 
-$metrikaFilterYnadexA = "ym:s:searchEngineRootName=@'Яндекс'";
-$metrikaFilterGoogleA = "ym:s:searchEngineRootName=@'Google'";
+$metrikaFilterYnadexA = $config['metrika_yandex_a'];
+$metrikaFilterGoogleA = $config['metrika_google_a'];
 
-$metrikaFilterYnadexB = "ym:s:searchEngineRootName=@'Яндекс'";
-$metrikaFilterGoogleB = "ym:s:searchEngineRootName=@'Google'";
+$metrikaFilterYnadexB = $config['metrika_yandex_b'];
+$metrikaFilterGoogleB = $config['metrika_google_b'];
 
 // создание списка дат за период
 $period = new DatePeriod(

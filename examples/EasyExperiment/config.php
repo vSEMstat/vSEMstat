@@ -49,4 +49,11 @@ return [
 		'https://topvisor.com/project/dynamics/2535875/#historyView=1&templateDateRange=data_range_1y&dates=&date1=20.12.2019&date2=20.12.2020&typeRange=2&typeRangeCompare=4&countDates=31&regionsIndexes=1&competitorsIds=&folderId=257868&groupId=13220597&tags=&dynamic=&minPos=&maxPos=&onlyExistsFirstDate=0',
 	],
 
+	// фильтры A яндекс и google
+	'metrika_yandex_a' => "ym:s:searchEngineRootName=@'Яндекс'",
+	'metrika_google_a' => "ym:s:searchEngineRootName=@'Google'",
+
+	// фильтры B яндекс и google
+	'metrika_yandex_a' => "ym:s:searchEngineRootName=@'Яндекс'",
+	'metrika_google_b' => "ym:s:searchEngineRootName=@'Google'",
 ];
