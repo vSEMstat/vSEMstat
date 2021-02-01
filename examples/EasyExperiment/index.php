@@ -12,7 +12,7 @@ use vSEMstat\Services\MetrikaService;
 
 
 // чиатем конфигурацию
-$config = include('/../../oauth/config.php');
+$config = include('config.php');
 
 $db = dbConnection($config['mysql']);
 
