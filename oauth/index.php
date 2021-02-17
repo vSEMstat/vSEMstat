@@ -39,6 +39,9 @@ if (isset($_GET['code']))
     file_put_contents('oauth_key.key', $result->access_token);
   }
 else {
+  
+    $client_id = $config['metrika']['client_id'];
+
     header('Location: https://oauth.yandex.ru/authorize?response_type=code&client_id='.$client_id);
   }
 ?>
